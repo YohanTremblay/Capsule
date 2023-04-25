@@ -33,6 +33,22 @@
                 <label asp-for="DateObtention" class="control-label"></label>
                 <input asp-for="DateObtention" type="date" class="form-control" />
                 <span asp-validation-for="DateObtention" class="text-danger"></span>
+
+                <div>
+                    @{
+                        // Tableau de valeurs et d'étiquettes pour les boutons radio
+                        var values = new int[] { 1, 2, 3, 4, 5 };
+                        var labels = new string[] { "★", "★★", "★★★", "★★★★", "★★★★★" };
+                    }
+                    <label asp-for="Rating" class="control-label"></label>
+                    @foreach (var i in Enumerable.Range(0, values.Length))
+                    {
+                        <label>
+                            @Html.RadioButton("rating", values[i], values[i] == Model.Rating, new { @class = "rating-button" })
+                            @labels[i]
+                        </label>
+                    }
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

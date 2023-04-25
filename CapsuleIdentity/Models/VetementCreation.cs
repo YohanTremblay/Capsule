@@ -7,10 +7,11 @@ namespace CapsuleIdentity.Models
     {
         public int VetementId { get; set; }
         public string Nom { get; set; }
-        SelectList? Genres { get; set; }
+        public SelectList? Genres { get; set; }
         public string VetementGenres { get; set; }
         public string Description { get; set; }
         public DateTime DateObtention { get; set; }
+        public int Rating { get; set; }
 
 
         [RegularExpression(@"^[A-Z]+[a-zA-Z\s]*$"), Required, StringLength(30)]

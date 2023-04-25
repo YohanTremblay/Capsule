@@ -30,7 +30,7 @@ namespace CapsuleIdentity.Controllers
 
 
         // GET: Vetements
-        public async Task<IActionResult> Index(string vetementsGenre, string searchString)
+        public async Task<IActionResult> Index(string vetementGenre, string searchString)
         {
             if (Context.Vetement == null)
                 return NotFound();
@@ -44,9 +44,9 @@ namespace CapsuleIdentity.Controllers
                 vetements = vetements.Where(s => s.Nom!.Contains(searchString));
             }
 
-            if (!string.IsNullOrEmpty(vetementsGenre))
+            if (!string.IsNullOrEmpty(vetementGenre))
             {
-                vetements = vetements.Where(x => x.Genre == vetementsGenre);
+                vetements = vetements.Where(x => x.Genre == vetementGenre);
             }
 
             var vetementGenreVM = new VetementGenreViewModel
@@ -91,8 +91,11 @@ namespace CapsuleIdentity.Controllers
                                             select g.NomGenre;
             var genres = from g in Context.GenreVetements select g;
 
-            VetementCreation model = new VetementCreation();
-            model.Genres new SelectList(await genreGenreQuery.Distinct().ToListAsync())
+            VetementCreation model = new VetementCreation()
+            {
+                Genres = new SelectList(genreGenreQuery.Distinct().ToList())
+            };
+            
 
             return View(model);
 
@@ -103,7 +106,7 @@ namespace CapsuleIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("VetementId,Nom,Genre,Couleur,Description,DateObtention")] VetementCreation vc)
+        public async Task<IActionResult> Create([Bind("VetementId,Nom,Genre,Couleur,Description,DateObtention,VetementGenres,Rating")] VetementCreation vc)
         {
             Vetement v = new Vetement();
             if (ModelState.IsValid)
@@ -118,6 +121,7 @@ namespace CapsuleIdentity.Controllers
                 v.Genre = vc.VetementGenres;
                 v.Description = vc.Description;
                 v.DateObtention = vc.DateObtention;
+                v.Rating = vc.Rating;
 
                 Context.Add(v);
                 await Context.SaveChangesAsync();
@@ -147,7 +151,7 @@ namespace CapsuleIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("VetementId,Nom,Genre,Couleur,Description,DateObtention")] Vetement v)
+        public async Task<IActionResult> Edit(int id, [Bind("VetementId,Nom,Genre,Couleur,Description,DateObtention,Rating")] Vetement v)
         {
             if (id != v.VetementId)
             {
@@ -158,6 +162,8 @@ namespace CapsuleIdentity.Controllers
             {
                 try
                 {
+                    var currentUserId = UserManager.GetUserId(User);
+                    v.ProprietaireId = currentUserId;
                     Context.Update(v);
                     await Context.SaveChangesAsync();
                 }

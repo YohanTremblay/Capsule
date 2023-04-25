@@ -19,12 +19,7 @@
             </div>
             <div class="form-group">
                  <p>
-                     @*<select>
-                        @for (int i = 0; i < 5; i++)
-                        {
-                            <option value="">G</option>
-                        }
-                    </select>*@
+                   <label asp-for="VetementGenres" class="control-label"></label>
                    <select asp-for="VetementGenres" asp-items="Model.Genres">
                         <option value="">All</option>
                     </select>
@@ -46,7 +41,22 @@
                 <input asp-for="DateObtention" type="date" class="form-control" />
                 <span asp-validation-for="DateObtention" class="text-danger"></span>
             </div>
+            <div>
+                @{
+                    // Tableau de valeurs et d'étiquettes pour les boutons radio
+                    var values = new int[] { 1, 2, 3, 4, 5 };
+                    var labels = new string[] { "★", "★★", "★★★", "★★★★", "★★★★★" };
+                }
+                <label asp-for="Rating" class="control-label"></label>
+                @foreach (var i in Enumerable.Range(0, values.Length))
+                {
+                    <label>
+                        @Html.RadioButton("rating", values[i], false, new { @class = "rating-button" })
+                        @labels[i]
+                    </label>
+                }
 
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

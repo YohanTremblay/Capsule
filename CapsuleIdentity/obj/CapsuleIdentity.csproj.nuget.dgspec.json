@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\2132535\\Documents\\Cours (code)\\code\\Prog4\\CapsuleIdentity\\CapsuleIdentity\\CapsuleIdentity.csproj": {}
+    "C:\\Users\\2132535\\Documents\\Code\\Prog4\\Capsule\\CapsuleIdentity\\CapsuleIdentity.csproj": {}
   },
   "projects": {
-    "C:\\Users\\2132535\\Documents\\Cours (code)\\code\\Prog4\\CapsuleIdentity\\CapsuleIdentity\\CapsuleIdentity.csproj": {
+    "C:\\Users\\2132535\\Documents\\Code\\Prog4\\Capsule\\CapsuleIdentity\\CapsuleIdentity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\2132535\\Documents\\Cours (code)\\code\\Prog4\\CapsuleIdentity\\CapsuleIdentity\\CapsuleIdentity.csproj",
+        "projectUniqueName": "C:\\Users\\2132535\\Documents\\Code\\Prog4\\Capsule\\CapsuleIdentity\\CapsuleIdentity.csproj",
         "projectName": "CapsuleIdentity",
-        "projectPath": "C:\\Users\\2132535\\Documents\\Cours (code)\\code\\Prog4\\CapsuleIdentity\\CapsuleIdentity\\CapsuleIdentity.csproj",
+        "projectPath": "C:\\Users\\2132535\\Documents\\Code\\Prog4\\Capsule\\CapsuleIdentity\\CapsuleIdentity.csproj",
         "packagesPath": "C:\\Users\\2132535\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\2132535\\Documents\\Cours (code)\\code\\Prog4\\CapsuleIdentity\\CapsuleIdentity\\obj\\",
+        "outputPath": "C:\\Users\\2132535\\Documents\\Code\\Prog4\\Capsule\\CapsuleIdentity\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

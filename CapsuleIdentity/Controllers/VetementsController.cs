@@ -49,19 +49,16 @@ namespace CapsuleIdentity.Controllers
                 vetements = vetements.Where(x => x.Genre == vetementGenre);
             }
 
-            var vetementGenreVM = new VetementGenreViewModel
-            {
-                Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
-                Vetements = await vetements.ToListAsync()
-            };
-
-            
-
             var isAuthorized = User.
             IsInRole(AuthorizationConstants.VetementAdministratorsRole);
             var currentUserId = UserManager.GetUserId(User);
             if (!isAuthorized)
                 vetements = vetements.Where(v => v.ProprietaireId == currentUserId);
+            var vetementGenreVM = new VetementGenreViewModel
+            {
+                Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
+                Vetements = await vetements.ToListAsync()
+            };
             return View(vetementGenreVM);
         }
 

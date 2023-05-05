@@ -12,6 +12,7 @@ namespace CapsuleIdentity.Models
         public string Description { get; set; }
         public DateTime DateObtention { get; set; }
         public int Rating { get; set; }
+        public IFormFile Image { get; set; }
 
 
         [RegularExpression(@"^[A-Z]+[a-zA-Z\s]*$"), Required, StringLength(30)]

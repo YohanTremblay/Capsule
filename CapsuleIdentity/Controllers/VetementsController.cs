@@ -61,6 +61,216 @@ namespace CapsuleIdentity.Controllers
             };
             return View(vetementGenreVM);
         }
+        // GET: VetementsRandom
+        public async Task<IActionResult> Random(string vetementGenre, string searchString)
+        {
+            if (Context.Vetement == null)
+                return NotFound();
+            IQueryable<string> genreQuery = from v in Context.Vetement
+                                            orderby v.Genre
+                                            select v.Genre;
+            var vetements = from v in Context.Vetement select v;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                vetements = vetements.Where(s => s.Nom!.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(vetementGenre))
+            {
+                vetements = vetements.Where(x => x.Genre == vetementGenre);
+            }
+
+            var isAuthorized = User.
+            IsInRole(AuthorizationConstants.VetementAdministratorsRole);
+            var currentUserId = UserManager.GetUserId(User);
+            if (!isAuthorized)
+            {
+                vetements = vetements.Where(v => v.ProprietaireId == currentUserId);
+            }
+            var chapeaux = vetements.Where(v => v.Genre == "Chapeau");
+            var lstChap = new List<Vetement>();
+            if (chapeaux.Any())
+            {
+                foreach (var item in chapeaux)
+                {
+                    for (int i = 0; i < item.Rating; i++)
+                    {
+                        lstChap.Add(item);
+                    }
+
+                }
+            }
+            int countChapeaux = lstChap.Count();
+
+            var chaussures = vetements.Where(v => v.Genre == "Chaussure");
+            var lstChau = new List<Vetement>();
+            if(chaussures.Any())
+            {
+                foreach (var item in chaussures)
+                {
+                    for (int i = 0; i < item.Rating; i++)
+                    {
+                        lstChau.Add(item);
+                    }
+
+                }
+            }
+            int countChaussures = lstChau.Count();
+
+            var bas = vetements.Where(v => v.Genre == "Bas");
+            var lstBas = new List<Vetement>();
+            if(bas.Any())
+            {
+                foreach (var item in bas)
+                {
+                    for (int i = 0; i < item.Rating; i++)
+                    {
+                        lstBas.Add(item);
+                    }
+
+                }
+            }
+            int countBas = lstBas.Count();
+
+            var hauts = vetements.Where(v => v.Genre == "Haut");
+            var lstHauts = new List<Vetement>();
+            if(hauts.Any())
+            {
+                foreach (var item in hauts)
+                {
+                    for (int i = 0; i < item.Rating; i++)
+                    {
+                        lstHauts.Add(item);
+                    }
+
+                }
+            }
+            int countHauts = lstHauts.Count();
+
+            var deuxPieces = vetements.Where(v => v.Genre == "Deux pièces");
+            var lst2Pieces = new List<Vetement>();
+            if(deuxPieces.Any())
+            {
+                foreach (var item in deuxPieces)
+                {
+                    for (int i = 0; i < item.Rating; i++)
+                    {
+                        lst2Pieces.Add(item);
+                    }
+
+                }
+            }
+            
+            int countDeuxPieces = lst2Pieces.Count();
+
+            Random rnd = new Random();
+            var vetementsLst = new List<Vetement>();
+
+            
+          
+            if (countDeuxPieces != 0 && countHauts != 0 )
+            {
+                int nbRND = rnd.Next(1);
+                if(nbRND == 0)
+                {
+                    if (countChaussures != 0)
+                    {
+                        int chaussuresRND = rnd.Next(countChaussures);
+                        var chaussure = lstChau.ElementAt(chaussuresRND);
+                        vetementsLst.Add(chaussure);
+                    }
+
+                    if (countChapeaux != 0)
+                    {
+                        int chapeauxRND = rnd.Next(countChapeaux);
+                        var chapeau = lstChap.ElementAt(chapeauxRND);
+                        vetementsLst.Add(chapeau);
+                    }
+
+                    if (countBas != 0)
+                    {
+                        int basRND = rnd.Next(countBas);
+                        var ba = lstBas.ElementAt(basRND);
+                        vetementsLst.Add(ba);
+                    }
+                    int hautRND = rnd.Next(countHauts);
+                    var haut = lstHauts.ElementAt(hautRND);
+                    vetementsLst.Add(haut);
+                }
+                else if(nbRND == 1)
+                {
+                    if (countChaussures != 0)
+                    {
+                        int chaussuresRND = rnd.Next(countChaussures);
+                        var chaussure = lstChau.ElementAt(chaussuresRND);
+                        vetementsLst.Add(chaussure);
+                    }
+
+                    if (countChapeaux != 0)
+                    {
+                        int chapeauxRND = rnd.Next(countChapeaux);
+                        var chapeau = lstChap.ElementAt(chapeauxRND);
+                        vetementsLst.Add(chapeau);
+                    }
+                    int deuxPiecesRND = rnd.Next(countDeuxPieces);
+                    var deuxPiece = lst2Pieces.ElementAt(deuxPiecesRND);
+                    vetementsLst.Add(deuxPiece);
+                }
+            }
+            else if(countHauts == 0 && countDeuxPieces != 0)
+            {
+                if (countChaussures != 0)
+                {
+                    int chaussuresRND = rnd.Next(countChaussures);
+                    var chaussure = lstChau.ElementAt(chaussuresRND);
+                    vetementsLst.Add(chaussure);
+                }
+
+                if (countChapeaux != 0)
+                {
+                    int chapeauxRND = rnd.Next(countChapeaux);
+                    var chapeau = lstChap.ElementAt(chapeauxRND);
+                    vetementsLst.Add(chapeau);
+                }
+                int deuxPiecesRND = rnd.Next(countDeuxPieces);
+                var deuxPiece = lst2Pieces.ElementAt(deuxPiecesRND);
+                vetementsLst.Add(deuxPiece);
+            }
+            else if(countHauts != 0 && countDeuxPieces == 0)
+            {
+                if (countChaussures != 0)
+                {
+                    int chaussuresRND = rnd.Next(countChaussures);
+                    var chaussure = lstChau.ElementAt(chaussuresRND);
+                    vetementsLst.Add(chaussure);
+                }
+
+                if (countChapeaux != 0)
+                {
+                    int chapeauxRND = rnd.Next(countChapeaux);
+                    var chapeau = lstChap.ElementAt(chapeauxRND);
+                    vetementsLst.Add(chapeau);
+                }
+
+                if (countBas != 0)
+                {
+                    int basRND = rnd.Next(countBas);
+                    var ba = lstBas.ElementAt(basRND);
+                    vetementsLst.Add(ba);
+                }
+                int hautRND = rnd.Next(countHauts);
+                var haut = lstHauts.ElementAt(hautRND);
+                vetementsLst.Add(haut);
+            }
+
+            var VetementRandom = new VetementRandom
+            {
+                Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
+                Vetements = vetementsLst
+            };
+            return View(VetementRandom);
+        }
 
         // GET: Vetements/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -84,15 +294,15 @@ namespace CapsuleIdentity.Controllers
             if (Context.Vetement == null)
                 return NotFound();
             IQueryable<string> genreGenreQuery = from g in Context.GenreVetements
-                                            orderby g.NomGenre
-                                            select g.NomGenre;
+                                                 orderby g.NomGenre
+                                                 select g.NomGenre;
             var genres = from g in Context.GenreVetements select g;
 
             VetementCreation model = new VetementCreation()
             {
                 Genres = new SelectList(genreGenreQuery.Distinct().ToList())
             };
-            
+
 
             return View(model);
 
@@ -103,13 +313,37 @@ namespace CapsuleIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("VetementId,Nom,Genre,Couleur,Description,DateObtention,VetementGenres,Rating")] VetementCreation vc)
+        public async Task<IActionResult> Create([Bind("VetementId,Nom,Genre,Couleur,Description,DateObtention,VetementGenres,Rating,Image")] VetementCreation vc)
         {
             Vetement v = new Vetement();
             if (ModelState.IsValid)
             {
+                
+
+
+
                 var currentUserId = UserManager.GetUserId(User);
                 vc.ProprietaireId = currentUserId;
+
+
+
+
+
+                var pathDossier = Path.Combine("wwwroot/images/", vc.VetementId.ToString());
+                Directory.CreateDirectory(pathDossier);
+
+                var image = Path.GetFileName(vc.Image.Name);
+                var path = Path.Combine(pathDossier, image);
+                var ecriture = System.IO.File.Create(path);
+
+                await vc.Image.CopyToAsync(ecriture);
+
+                v.Image = Path.GetFullPath(path);
+
+
+
+
+
 
                 v.ProprietaireId = vc.ProprietaireId;
                 v.Nom = vc.Nom;
@@ -212,14 +446,14 @@ namespace CapsuleIdentity.Controllers
             {
                 Context.Vetement.Remove(vetement);
             }
-            
+
             await Context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool VetementExists(int id)
         {
-          return (Context.Vetement?.Any(e => e.VetementId == id)).GetValueOrDefault();
+            return (Context.Vetement?.Any(e => e.VetementId == id)).GetValueOrDefault();
         }
     }
 }

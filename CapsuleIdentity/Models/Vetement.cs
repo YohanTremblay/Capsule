@@ -11,6 +11,7 @@ namespace CapsuleIdentity.Models
         public string Description { get; set; }
         public DateTime DateObtention { get; set; }
         public int Rating { get; set; }
+        public string Image { get; set; }
 
         [RegularExpression(@"^[A-Z]+[a-zA-Z\s]*$"), Required, StringLength(30)]
         public string? Couleur { get; set; }

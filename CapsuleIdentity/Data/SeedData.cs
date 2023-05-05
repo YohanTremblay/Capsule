@@ -83,16 +83,16 @@ namespace CapsuleIdentity.Data
 
         public static void SeedDB(ApplicationDbContext context, string adminID)
         {
-            if (context.Vetement.Any())
+            if (context.GenreVetements.Any())
             {
                 return;
             }
-            context.Vetement.AddRange(
-                new Vetement { Nom = "T-shirt bleu", ProprietaireId = adminID },
-                new Vetement { Nom = "Camisole verte", ProprietaireId = adminID },
-                new Vetement { Nom = "Chienne de travail", ProprietaireId = adminID },
-                new Vetement { Nom = "Mom Jeans", ProprietaireId = adminID },
-                new Vetement { Nom = "Espadrilles", ProprietaireId = adminID });
+            context.GenreVetements.AddRange(
+                new GenreVetement { NomGenre = "Chapeau" },
+                new GenreVetement { NomGenre = "Bas" },
+                new GenreVetement { NomGenre = "Chaussure" },
+                new GenreVetement { NomGenre = "Haut" },
+                new GenreVetement { NomGenre = "Deux pièces" });
             context.SaveChanges();
         }
     }

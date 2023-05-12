@@ -318,45 +318,43 @@ namespace CapsuleIdentity.Controllers
             Vetement v = new Vetement();
             if (ModelState.IsValid)
             {
-                
-
-
-
                 var currentUserId = UserManager.GetUserId(User);
                 vc.ProprietaireId = currentUserId;
-
-
-
-
-
-                var pathDossier = Path.Combine("wwwroot/images/", vc.VetementId.ToString());
-                Directory.CreateDirectory(pathDossier);
-
-                var image = Path.GetFileName(vc.Image.Name);
-                var path = Path.Combine(pathDossier, image);
-                var ecriture = System.IO.File.Create(path);
-
-                await vc.Image.CopyToAsync(ecriture);
-
-                v.Image = Path.GetFullPath(path);
-
-
-
-
-
 
                 v.ProprietaireId = vc.ProprietaireId;
                 v.Nom = vc.Nom;
                 v.Couleur = vc.Couleur;
-                v.VetementId = vc.VetementId;
                 v.Genre = vc.VetementGenres;
                 v.Description = vc.Description;
                 v.DateObtention = vc.DateObtention;
                 v.Rating = vc.Rating;
+                v.Image = "";
 
                 Context.Add(v);
                 await Context.SaveChangesAsync();
+
+                var vetements = from vi in Context.Vetement select vi;
+                int max = Context.Vetement.Max((x) => x.VetementId);
+                Vetement vetement = Context.Vetement.Where((x) => x.VetementId == max).FirstOrDefault();
+
+                var pathDossier = Path.Combine("wwwroot/images/", vetement.VetementId.ToString());
+                Directory.CreateDirectory(pathDossier);
+
+                var imageName = Path.GetFileName(vc.Image.FileName);
+                var imageExtension = Path.GetExtension(vc.Image.FileName);
+                var imageFileName = Path.GetFileNameWithoutExtension(imageName);
+
+                var path = Path.Combine(pathDossier, imageFileName + imageExtension);
+                var ecriture = System.IO.File.Create(path);
+
+                await vc.Image.CopyToAsync(ecriture);
+
+                vetement.Image = "~/images/"+ vetement.VetementId + "/" + imageFileName + imageExtension;
+
+                await Context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
+
             }
             return View(v);
         }
@@ -393,8 +391,15 @@ namespace CapsuleIdentity.Controllers
             {
                 try
                 {
+                    IQueryable<string> genreQuery = from vi in Context.Vetement
+                                                    orderby vi.Genre
+                                                    select vi.Genre;
+                    var vetements = from vi in Context.Vetement select vi;
+                    vetements = vetements.Where(x => x.VetementId == v.VetementId);
+
                     var currentUserId = UserManager.GetUserId(User);
                     v.ProprietaireId = currentUserId;
+                     
                     Context.Update(v);
                     await Context.SaveChangesAsync();
                 }
@@ -445,6 +450,8 @@ namespace CapsuleIdentity.Controllers
             if (vetement != null)
             {
                 Context.Vetement.Remove(vetement);
+                var pathDossier = Path.Combine("wwwroot/images/", vetement.VetementId.ToString());
+                Directory.Delete(pathDossier, true);
             }
 
             await Context.SaveChangesAsync();

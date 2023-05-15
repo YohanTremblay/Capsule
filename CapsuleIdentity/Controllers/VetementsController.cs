@@ -380,7 +380,7 @@ namespace CapsuleIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("VetementId,Nom,Genre,Couleur,Description,DateObtention,Rating")] Vetement v)
+        public async Task<IActionResult> Edit(int id, [Bind("VetementId,Nom,Genre,Couleur,Description,DateObtention,Rating,Image")] Vetement v)
         {
             if (id != v.VetementId)
             {
@@ -391,15 +391,17 @@ namespace CapsuleIdentity.Controllers
             {
                 try
                 {
-                    IQueryable<string> genreQuery = from vi in Context.Vetement
-                                                    orderby vi.Genre
-                                                    select vi.Genre;
-                    var vetements = from vi in Context.Vetement select vi;
-                    vetements = vetements.Where(x => x.VetementId == v.VetementId);
+                    //var vetements = from vi in Context.Vetement select vi;
+                    //vetements = vetements.Where(x => x.VetementId == v.VetementId);
 
                     var currentUserId = UserManager.GetUserId(User);
                     v.ProprietaireId = currentUserId;
-                     
+
+                    //var premierVetement = vetements.FirstOrDefault(); // Obtenir le premier élément correspondant à la condition
+                    //if (premierVetement != null)
+                    //{
+                    //    v.Image = premierVetement.Image; // Affecter la propriété Image à v.Image
+                    //}
                     Context.Update(v);
                     await Context.SaveChangesAsync();
                 }

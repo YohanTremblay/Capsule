@@ -10,7 +10,7 @@ namespace CapsuleIdentity.Data
             : base(options)
         {
         }
-        public DbSet<CapsuleIdentity.Models.Vetement>? Vetement { get; set; }
+        public virtual DbSet<CapsuleIdentity.Models.Vetement>? Vetement { get; set; }
         public DbSet<CapsuleIdentity.Models.GenreVetement>? GenreVetements { get; set; }
     }
 }

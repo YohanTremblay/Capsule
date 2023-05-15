@@ -105,7 +105,7 @@ namespace CapsuleIdentity.Controllers
 
             var chaussures = vetements.Where(v => v.Genre == "Chaussure");
             var lstChau = new List<Vetement>();
-            if(chaussures.Any())
+            if (chaussures.Any())
             {
                 foreach (var item in chaussures)
                 {
@@ -120,7 +120,7 @@ namespace CapsuleIdentity.Controllers
 
             var bas = vetements.Where(v => v.Genre == "Bas");
             var lstBas = new List<Vetement>();
-            if(bas.Any())
+            if (bas.Any())
             {
                 foreach (var item in bas)
                 {
@@ -135,7 +135,7 @@ namespace CapsuleIdentity.Controllers
 
             var hauts = vetements.Where(v => v.Genre == "Haut");
             var lstHauts = new List<Vetement>();
-            if(hauts.Any())
+            if (hauts.Any())
             {
                 foreach (var item in hauts)
                 {
@@ -150,7 +150,7 @@ namespace CapsuleIdentity.Controllers
 
             var deuxPieces = vetements.Where(v => v.Genre == "Deux pièces");
             var lst2Pieces = new List<Vetement>();
-            if(deuxPieces.Any())
+            if (deuxPieces.Any())
             {
                 foreach (var item in deuxPieces)
                 {
@@ -161,18 +161,18 @@ namespace CapsuleIdentity.Controllers
 
                 }
             }
-            
+
             int countDeuxPieces = lst2Pieces.Count();
 
             Random rnd = new Random();
             var vetementsLst = new List<Vetement>();
 
-            
-          
-            if (countDeuxPieces != 0 && countHauts != 0 )
+
+
+            if (countDeuxPieces != 0 && countHauts != 0)
             {
                 int nbRND = rnd.Next(1);
-                if(nbRND == 0)
+                if (nbRND == 0)
                 {
                     if (countChaussures != 0)
                     {
@@ -198,7 +198,7 @@ namespace CapsuleIdentity.Controllers
                     var haut = lstHauts.ElementAt(hautRND);
                     vetementsLst.Add(haut);
                 }
-                else if(nbRND == 1)
+                else if (nbRND == 1)
                 {
                     if (countChaussures != 0)
                     {
@@ -218,7 +218,7 @@ namespace CapsuleIdentity.Controllers
                     vetementsLst.Add(deuxPiece);
                 }
             }
-            else if(countHauts == 0 && countDeuxPieces != 0)
+            else if (countHauts == 0 && countDeuxPieces != 0)
             {
                 if (countChaussures != 0)
                 {
@@ -237,7 +237,7 @@ namespace CapsuleIdentity.Controllers
                 var deuxPiece = lst2Pieces.ElementAt(deuxPiecesRND);
                 vetementsLst.Add(deuxPiece);
             }
-            else if(countHauts != 0 && countDeuxPieces == 0)
+            else if (countHauts != 0 && countDeuxPieces == 0)
             {
                 if (countChaussures != 0)
                 {
@@ -349,7 +349,7 @@ namespace CapsuleIdentity.Controllers
 
                 await vc.Image.CopyToAsync(ecriture);
 
-                vetement.Image = "~/images/"+ vetement.VetementId + "/" + imageFileName + imageExtension;
+                vetement.Image = "~/images/" + vetement.VetementId + "/" + imageFileName + imageExtension;
 
                 await Context.SaveChangesAsync();
 
@@ -380,7 +380,7 @@ namespace CapsuleIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("VetementId,Nom,Genre,Couleur,Description,DateObtention,Rating")] Vetement v)
+        public async Task<IActionResult> Edit(int id, [Bind("VetementId,Nom,Genre,Couleur,Description,DateObtention,Rating,Image")] Vetement v)
         {
             if (id != v.VetementId)
             {
@@ -391,15 +391,9 @@ namespace CapsuleIdentity.Controllers
             {
                 try
                 {
-                    IQueryable<string> genreQuery = from vi in Context.Vetement
-                                                    orderby vi.Genre
-                                                    select vi.Genre;
-                    var vetements = from vi in Context.Vetement select vi;
-                    vetements = vetements.Where(x => x.VetementId == v.VetementId);
-
                     var currentUserId = UserManager.GetUserId(User);
                     v.ProprietaireId = currentUserId;
-                     
+
                     Context.Update(v);
                     await Context.SaveChangesAsync();
                 }

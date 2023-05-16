@@ -823,3 +823,8 @@ C:\Users\2030610\Documents\Code\Prog4\Capsule\CapsuleIdentity\obj\Debug\net6.0\r
 C:\Users\2030610\Documents\Code\Prog4\Capsule\CapsuleIdentity\obj\Debug\net6.0\CapsuleIdentity.pdb
 C:\Users\2030610\Documents\Code\Prog4\Capsule\CapsuleIdentity\obj\Debug\net6.0\CapsuleIdentity.genruntimeconfig.cache
 C:\Users\2030610\Documents\Code\Prog4\Capsule\CapsuleIdentity\obj\Debug\net6.0\ref\CapsuleIdentity.dll
+C:\Users\2132535\Documents\Code\Prog4\Capsule\CapsuleIdentity\obj\Debug\net6.0\staticwebassets\msbuild.CapsuleIdentity.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\2132535\Documents\Code\Prog4\Capsule\CapsuleIdentity\obj\Debug\net6.0\staticwebassets\msbuild.build.CapsuleIdentity.props
+C:\Users\2132535\Documents\Code\Prog4\Capsule\CapsuleIdentity\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.CapsuleIdentity.props
+C:\Users\2132535\Documents\Code\Prog4\Capsule\CapsuleIdentity\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.CapsuleIdentity.props
+C:\Users\2132535\Documents\Code\Prog4\Capsule\CapsuleIdentity\obj\Debug\net6.0\staticwebassets.pack.json

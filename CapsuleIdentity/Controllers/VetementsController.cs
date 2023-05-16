@@ -88,20 +88,6 @@ namespace CapsuleIdentity.Controllers
             {
                 vetements = vetements.Where(v => v.ProprietaireId == currentUserId);
             }
-            var chapeaux = vetements.Where(v => v.Genre == "Chapeau");
-            var lstChap = new List<Vetement>();
-            if (chapeaux.Any())
-            {
-                foreach (var item in chapeaux)
-                {
-                    for (int i = 0; i < item.Rating; i++)
-                    {
-                        lstChap.Add(item);
-                    }
-
-                }
-            }
-            int countChapeaux = lstChap.Count();
 
             var chaussures = vetements.Where(v => v.Genre == "Chaussure");
             var lstChau = new List<Vetement>();
@@ -181,13 +167,6 @@ namespace CapsuleIdentity.Controllers
                         vetementsLst.Add(chaussure);
                     }
 
-                    if (countChapeaux != 0)
-                    {
-                        int chapeauxRND = rnd.Next(countChapeaux);
-                        var chapeau = lstChap.ElementAt(chapeauxRND);
-                        vetementsLst.Add(chapeau);
-                    }
-
                     if (countBas != 0)
                     {
                         int basRND = rnd.Next(countBas);
@@ -206,13 +185,6 @@ namespace CapsuleIdentity.Controllers
                         var chaussure = lstChau.ElementAt(chaussuresRND);
                         vetementsLst.Add(chaussure);
                     }
-
-                    if (countChapeaux != 0)
-                    {
-                        int chapeauxRND = rnd.Next(countChapeaux);
-                        var chapeau = lstChap.ElementAt(chapeauxRND);
-                        vetementsLst.Add(chapeau);
-                    }
                     int deuxPiecesRND = rnd.Next(countDeuxPieces);
                     var deuxPiece = lst2Pieces.ElementAt(deuxPiecesRND);
                     vetementsLst.Add(deuxPiece);
@@ -226,13 +198,6 @@ namespace CapsuleIdentity.Controllers
                     var chaussure = lstChau.ElementAt(chaussuresRND);
                     vetementsLst.Add(chaussure);
                 }
-
-                if (countChapeaux != 0)
-                {
-                    int chapeauxRND = rnd.Next(countChapeaux);
-                    var chapeau = lstChap.ElementAt(chapeauxRND);
-                    vetementsLst.Add(chapeau);
-                }
                 int deuxPiecesRND = rnd.Next(countDeuxPieces);
                 var deuxPiece = lst2Pieces.ElementAt(deuxPiecesRND);
                 vetementsLst.Add(deuxPiece);
@@ -244,13 +209,6 @@ namespace CapsuleIdentity.Controllers
                     int chaussuresRND = rnd.Next(countChaussures);
                     var chaussure = lstChau.ElementAt(chaussuresRND);
                     vetementsLst.Add(chaussure);
-                }
-
-                if (countChapeaux != 0)
-                {
-                    int chapeauxRND = rnd.Next(countChapeaux);
-                    var chapeau = lstChap.ElementAt(chapeauxRND);
-                    vetementsLst.Add(chapeau);
                 }
 
                 if (countBas != 0)
@@ -345,9 +303,10 @@ namespace CapsuleIdentity.Controllers
                 var imageFileName = Path.GetFileNameWithoutExtension(imageName);
 
                 var path = Path.Combine(pathDossier, imageFileName + imageExtension);
-                var ecriture = System.IO.File.Create(path);
-
-                await vc.Image.CopyToAsync(ecriture);
+                using (var ecriture = System.IO.File.Create(path))
+                {
+                    await vc.Image.CopyToAsync(ecriture);
+                }
 
                 vetement.Image = "~/images/" + vetement.VetementId + "/" + imageFileName + imageExtension;
 
@@ -391,23 +350,8 @@ namespace CapsuleIdentity.Controllers
             {
                 try
                 {
-<<<<<<< HEAD
-                    //var vetements = from vi in Context.Vetement select vi;
-                    //vetements = vetements.Where(x => x.VetementId == v.VetementId);
-
                     var currentUserId = UserManager.GetUserId(User);
                     v.ProprietaireId = currentUserId;
-
-                    //var premierVetement = vetements.FirstOrDefault(); // Obtenir le premier élément correspondant à la condition
-                    //if (premierVetement != null)
-                    //{
-                    //    v.Image = premierVetement.Image; // Affecter la propriété Image à v.Image
-                    //}
-=======
-                    var currentUserId = UserManager.GetUserId(User);
-                    v.ProprietaireId = currentUserId;
-
->>>>>>> 08041da388f69143982345128281e35b0ef5ca65
                     Context.Update(v);
                     await Context.SaveChangesAsync();
                 }
@@ -458,8 +402,8 @@ namespace CapsuleIdentity.Controllers
             if (vetement != null)
             {
                 Context.Vetement.Remove(vetement);
-                var pathDossier = Path.Combine("wwwroot/images/", vetement.VetementId.ToString());
-                Directory.Delete(pathDossier, true);
+                //var pathDossier = Path.Combine("wwwroot/images/", vetement.VetementId.ToString());
+                //Directory.Delete(pathDossier, true);
             }
 
             await Context.SaveChangesAsync();

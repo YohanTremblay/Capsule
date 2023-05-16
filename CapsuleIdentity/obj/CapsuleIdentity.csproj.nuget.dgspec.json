@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\2030610\\Documents\\Code\\Prog4\\Capsule\\CapsuleIdentity\\CapsuleIdentity.csproj": {}
+    "C:\\Users\\2132535\\Documents\\Code\\Prog4\\Capsule\\CapsuleIdentity\\CapsuleIdentity.csproj": {}
   },
   "projects": {
-    "C:\\Users\\2030610\\Documents\\Code\\Prog4\\Capsule\\CapsuleIdentity\\CapsuleIdentity.csproj": {
+    "C:\\Users\\2132535\\Documents\\Code\\Prog4\\Capsule\\CapsuleIdentity\\CapsuleIdentity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\2030610\\Documents\\Code\\Prog4\\Capsule\\CapsuleIdentity\\CapsuleIdentity.csproj",
+        "projectUniqueName": "C:\\Users\\2132535\\Documents\\Code\\Prog4\\Capsule\\CapsuleIdentity\\CapsuleIdentity.csproj",
         "projectName": "CapsuleIdentity",
-        "projectPath": "C:\\Users\\2030610\\Documents\\Code\\Prog4\\Capsule\\CapsuleIdentity\\CapsuleIdentity.csproj",
-        "packagesPath": "C:\\Users\\2030610\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\2030610\\Documents\\Code\\Prog4\\Capsule\\CapsuleIdentity\\obj\\",
+        "projectPath": "C:\\Users\\2132535\\Documents\\Code\\Prog4\\Capsule\\CapsuleIdentity\\CapsuleIdentity.csproj",
+        "packagesPath": "C:\\Users\\2132535\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\2132535\\Documents\\Code\\Prog4\\Capsule\\CapsuleIdentity\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\2030610\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\2132535\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -76,8 +76,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -89,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }
